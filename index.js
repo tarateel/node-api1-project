@@ -55,7 +55,31 @@ server.get('/api/users', (req, res) => {
   });
 });
 
-
+// fetch a specific user
+server.get('/api/users/:id', (req, res) => {
+  // request a user by id parameter
+  users.findById(req.params.id)
+  // if user id is found,
+  .then(user => {
+    if (user) {
+      // respond with 'OK' status code and the requested user object
+      res.status(200).json(user)
+      //otherwise
+    } else {
+      // respond with 'not found' error code and JSON message
+      res.status(404).json({
+        message: "The user with the specified ID does not exist."
+      })
+    }
+  })
+  // if there is an error in retrieving the user from the db,
+  .catch(err => {
+    // respond with 'internal server error' status code and JSON error message
+    res.status(500).json({
+      errorMessage: "The user information could not be retrieved."
+    })
+  });
+});
 
 // listen on port 3000
 server.listen(3000, () => {
