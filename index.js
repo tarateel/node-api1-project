@@ -39,6 +39,22 @@ server.post('/api/users', (req, res) => {
   };
 });
 
+// fetch all user objects on the server
+server.get('/api/users', (req, res) => {
+  // request an array of all users in the db
+  users.find()
+  .then(users => {
+    //respond with the array of users
+    res.json(users)
+  })
+  .catch(err => {
+    // if an error, respond with 'internal server error' code and JSON error message
+    res.status(500).json({
+      errorMessage: "The users information could not be retrieved."
+    })
+  });
+});
+
 
 
 // listen on port 3000
