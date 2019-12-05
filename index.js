@@ -11,6 +11,7 @@ const server = express();
 
 // middleware
 server.use(express.json());
+server.use(cors());
 
 // add user to db
 server.post('/api/users', (req, res) => {
