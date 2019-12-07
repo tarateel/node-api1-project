@@ -27,6 +27,7 @@ server.post('/api/users', (req, res) => {
   } else {
     // insert user object
     users.insert(req.body)
+    // insert actually returns the id of the user, for the spec you then have to find the user using the id
     .then(user => {
       // and respond with 'status created' code and the id of the inserted user object
       res.status(201).json(user.id)
